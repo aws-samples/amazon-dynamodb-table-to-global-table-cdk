@@ -1,0 +1,24 @@
+{
+  "app": "mvn -e -q compile exec:java",
+  "versionReporting": false,
+  "pathMetadata": false,
+  "assetMetadata": false,
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "target",
+      "pom.xml",
+      "src/test"
+    ]
+  },
+  "context": {
+    "@aws-cdk/core:target-partitions": [
+      "aws",
+      "aws-cn"
+    ]
+  }
+}
