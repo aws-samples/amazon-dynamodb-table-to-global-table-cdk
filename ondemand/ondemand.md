@@ -229,7 +229,7 @@ aws lambda invoke --function-name OnDemandStackMyFunction \
 out --log-type Tail --query 'LogResult' --output text |  base64 -d
 ```
 
-## Step 3 - Detaching the table from the stack
+## Step 3 - Detach the table from the stack
 
 In this step, we are going to detach the table from the stack. All the required changes for this step are included in
 [`software.amazon.samples.ondemand.OnDemandStack3.java`](./src/main/java/software/amazon/samples/ondemand/OnDemandStack3.java)
@@ -291,7 +291,7 @@ aws lambda invoke --function-name OnDemandStackMyFunction \
 out --log-type Tail --query 'LogResult' --output text |  base64 -d
 ```
 
-## Step 4 - Importing the table as a CfnGlobalTable resource
+## Step 4 - Import the table as a CfnGlobalTable resource
 
 Now that the table is detached from AWS CDK and CloudFormation, we need to import it into our stack as a CfnGlobalTable
 resource.
@@ -331,50 +331,31 @@ using [CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/User
 .
 Follow the instruction for your preferred method:
 
-### Option 1 - Using cdk import
+### Option 1 - Use cdk import
 
 Using `cdk import`, we are going to import the detached table into the stack as a CfnGlobalTable resource.
-While [this issue](https://github.com/aws/aws-cdk/pull/24439) is still open, we need to apply the following workaround
-to
-import the table.
-Run the command below, it asks you to provide Arn and StreamArn. Enter any text, for example "arn", to both of these
-questions.
+Make sure that you are using cdk version `2.68.0` or higher.
+
+Run the command below:
 
 ```
-cdk --no-path-metadata --no-asset-metadata import OnDemandStack4 --record-resource-mapping=table-identifiers.json
+cdk --no-path-metadata --no-asset-metadata import OnDemandStack4 
 ```
 
-You see the following json in `table-identifiers.json` file:
+Confirm that the table name is correct, as below:
 
 ```
-{
-  "MyGlobalTable": {
-    "TableName": "OnDemandStackMyTable",
-    "Arn": "arn",
-    "StreamArn": "arn"
-  }
-}
+OnDemandStack4 (OnDemandStack)
+MyGlobalTable (AWS::DynamoDB::GlobalTable): import with TableName=OnDemandStackMyTable (yes/no) [default: yes]? yes
+OnDemandStack4 (OnDemandStack): importing resources into stack...
+OnDemandStack: creating CloudFormation changeset...
+
+ ✅  OnDemandStack4 (OnDemandStack)
 ```
 
-Edit this file and remove the two lines for Arn and StreamArn. This file should look like as below:
+If this command completed successfully, the table is again managed by AWS CDK as a global table.
 
-```
-{
-  "MyGlobalTable": {
-    "TableName": "OnDemandStackMyTable"
-  }
-}
-```
-
-Now, run the following command to import the table into your stack:
-
-```
-cdk --no-path-metadata --no-asset-metadata import OnDemandStack4 --resource-mapping=table-identifiers.json
-```
-
-If this command completed successfully, the table is again managed by AWS CDK as a CfnGlobalTable resource.
-
-### Option 2 - Using CloudFormation
+### Option 2 - Use CloudFormation
 
 To create a CloudFormation template representing this CDK
 stack: [`software.amazon.samples.ondemand.OnDemandStack4.java`](src/main/java/software/amazon/samples/ondemand/OnDemandStack4.java)

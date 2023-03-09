@@ -106,7 +106,7 @@ There are two folders:
 
 * `lambda` folder contains the implementation for a lambda that you can optionally run to verify the availability of the table and its data.
 
-This repository is based on: Java 11, Maven, [CDK](https://docs.aws.amazon.com/cdk/v2/guide/cli.html), [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+This repository is based on: Java 11, Maven, [CDK](https://docs.aws.amazon.com/cdk/v2/guide/cli.html) version `2.68.0` or higher , [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 To successfully run the examples in your own environment, please install and configure these tools.
 
 ## Step-by-step examples
